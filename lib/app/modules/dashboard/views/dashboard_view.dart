@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:lottie/lottie.dart';
 
-
 import '../../../data/entertainment_reponse.dart';
 import '../../../data/headline_response.dart';
 import '../../../data/sports_main.dart';
@@ -27,7 +26,7 @@ class DashboardView extends GetView<DashboardController> {
           floatingActionButton: FloatingActionButton(
             onPressed: () async {
               await auth.erase();
-              Get.offAll(() =>  HomeView());
+              Get.offAll(() => HomeView());
             },
             backgroundColor: Colors.redAccent,
             child: const Icon(Icons.logout_rounded),
@@ -74,6 +73,9 @@ class DashboardView extends GetView<DashboardController> {
                       Tab(
                         text: "Hiburan",
                       ),
+                      Tab(
+                        text: "Profile",
+                      ),
                     ],
                   ),
                 ),
@@ -95,6 +97,11 @@ class DashboardView extends GetView<DashboardController> {
                 ScrollController(),
               ),
               entertainment(
+                controller,
+                ScrollController(),
+              ),
+              profile(
+                context,
                 controller,
                 ScrollController(),
               ),
@@ -454,6 +461,49 @@ class DashboardView extends GetView<DashboardController> {
           },
         );
       },
+    );
+  }
+
+  Widget profile(BuildContext context, DashboardController controller,
+      ScrollController scrollcontroller) {
+    double width = MediaQuery.of(context).size.height;
+    double height = MediaQuery.of(context).size.height;
+
+    return Column(
+      children: <Widget>[
+        Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            Image(
+              height: MediaQuery.of(context).size.height / 3,
+              fit: BoxFit.cover,
+              image: NetworkImage(
+                  'https://tse2.mm.bing.net/th?id=OIP.lR8iLylOIt1b4DFVfZe58QHaEK&pid=Api&P=0'),
+            ),
+            Positioned(
+                child: CircleAvatar(
+              radius: 50,
+              backgroundColor: Colors.white,
+              backgroundImage: NetworkImage(
+                  'https://cdn2.iconfinder.com/data/icons/avatars-99/62/avatar-370-456322-512.png')
+            ),),
+          ],
+        ),
+        SizedBox(height: 20,),
+        ListTile(title: Text('Rifki Muhamad Fauzi'),),
+        Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Image.network('https://cdn-icons-png.flaticon.com/512/2111/2111425.png', height: 35),
+              Image.network('https://cdn-icons-png.flaticon.com/512/3059/3059997.png', height: 35),
+              Image.network('https://cdn-icons-png.flaticon.com/512/733/733579.png', height: 35),
+            ],
+          ),
+        ListTile(
+          title: Text('About Me'),
+          subtitle: Text('Hello, introduce my name is Rifki Muhamad Fauzi. I am a student at SMK Assalaam Bandung who is currently learning web programming. For now I already have fundamental knowledge about several programming languages and several frameworks likes PHP, HTML, CSS, Javascript, Bootstrap, Laravel, Flutter, etc.'),
+        )
+      ],
     );
   }
 }
